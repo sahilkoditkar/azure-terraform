@@ -1,0 +1,6 @@
+
+azure_location = "eastus"
+env_location = "use12"
+env_shortname = "asmgmtv1"
+env_vnet_addr = ["10.10.0.0/24"]
+env_appsubnet_addr = ["10.10.0.96/27"]
