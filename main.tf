@@ -57,13 +57,13 @@ resource "azurerm_network_security_group" "appsubnetnsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "appTraffic"
+    name                       = "appsPort"
     priority                   = 1002
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "443,8888"
+    destination_port_ranges     = ["443", "8080", "8888"]
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -103,8 +103,9 @@ resource "azurerm_linux_virtual_machine" "apps01" {
 
 # Create public IPs
 resource "azurerm_public_ip" "publicip" {
-  name                = "${var.env_shortname}publicIP"
+  name                = "${var.env_shortname}pip"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
+  domain_name_label   = "${var.env_shortname}pip"
 }
