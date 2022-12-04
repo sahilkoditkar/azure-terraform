@@ -9,6 +9,14 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+# Create a RG Lock
+resource "azurerm_management_lock" "resource-group-level" {
+  name       = "resource-group-level"
+  scope      =  azurerm_resource_group.rg.id
+  lock_level = "CanNotDelete"
+  notes      = "Locked because it's needed."
+}
+
 # Create virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.env_shortname}vnet"
